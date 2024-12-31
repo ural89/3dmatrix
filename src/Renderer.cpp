@@ -1,4 +1,6 @@
 #include "Renderer.h"
+#include <iostream>
+
 void Renderer::Render()
 {
     system("clear");
@@ -7,4 +9,26 @@ void Renderer::Render()
         GoToXY(i, i);
         std::cout << "X";
     }
+}
+
+void Renderer::RendererMatrix(const Matrix &matrix)
+{
+    for (const auto &row : matrix)
+    {
+        for (const auto &value : row)
+        {
+            std::cout << value << " ";
+        }
+        std::cout << '\n';
+    }
+}
+
+void Renderer::RenderVector(const Vector &vector)
+{
+
+    for (const auto i : vector)
+    {
+        std::cout << i << ", ";
+    }
+    std::cout << '\n';
 }
