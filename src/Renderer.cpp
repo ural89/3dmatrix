@@ -1,6 +1,6 @@
 #include "Renderer.h"
+#include <cmath>
 #include <iostream>
-
 void Renderer::Render()
 {
     system("clear");
@@ -28,7 +28,14 @@ void Renderer::RenderVector(const Vector &vector)
 
     for (const auto i : vector)
     {
-        std::cout << i << ", ";
+        if (std::fabs(i) < 1e-10)
+        {
+            std::cout << 0 << ", ";
+        }
+        else
+        {
+            std::cout << i << ", ";
+        }
     }
     std::cout << '\n';
 }

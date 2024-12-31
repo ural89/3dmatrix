@@ -1,8 +1,8 @@
 #pragma once
 #include <array>
 
-#define Matrix std::array<std::array<int, 4>, 4>
-#define Vector std::array<int, 4>
+#define Matrix std::array<std::array<double, 4>, 4>
+#define Vector std::array<double, 4>
 
 static Vector MultiplyMatrix(const Matrix& mat, const Vector& vec) {
     Vector result = {0, 0, 0, 0};
