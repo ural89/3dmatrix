@@ -3,6 +3,8 @@
 class LocalToWorldPosition
 {
 public:
+    Vector carPositionVector = {
+    {10, 5, 0, 1}};
     //example a car in (10, 5, 0) world position without rotation
     Matrix carMatrixToWorld = {{
         {{1, 0, 0, 10}}, 
@@ -12,7 +14,10 @@ public:
     }};
 
 
-    //another object in (2, 3, 0, 1) CAR POSITION without rotation
+    //another object in (2, 3, 0) CAR POSITION without rotation
+    Vector objectLocalPositionVector = {
+        {2, 3, 0, 1}
+    };
     Matrix objectMatrixToCar {{
         {{1, 0, 0, 2}}, 
         {{0, 1, 0, 3}}, 
@@ -21,7 +26,7 @@ public:
     }};
 
   //to find object's world position carMatrixToWorld x objectPosition
-    Vector objectWorldPosition = MultiplyMatrix(carMatrixToWorld, Vector{{2, 3, 0, 1}});
+    Vector objectWorldPosition = MultiplyMatrix(carMatrixToWorld, objectLocalPositionVector);
 
 
 };

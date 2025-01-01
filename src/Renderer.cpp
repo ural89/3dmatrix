@@ -17,7 +17,14 @@ void Renderer::RendererMatrix(const Matrix &matrix)
     {
         for (const auto &value : row)
         {
-            std::cout << value << " ";
+            if (std::fabs(value) < 0.01)
+            {
+                std::cout << 0 << ", ";
+            }
+            else
+            {
+                std::cout << value << ", ";
+            }
         }
         std::cout << '\n';
     }

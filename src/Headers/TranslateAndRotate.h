@@ -5,25 +5,24 @@
 class TranslateAndRotate
 {
 public:
-    Matrix translationMatrix = {
-        {{{1, 0, 0, 5}},
-         {{0, 1, 0, -2}},
-         {{0, 0, 1, 3}}, 
-        {{0, 0, 0, 1}}}};
 
-    double rotationAngleDegrees = 90;
+    
+    Vector RotateVectorOnZ(const Vector& vectorToRotate, float rotationAngle)
+    {
+        return MultiplyMatrix(GetRotationZMatrix(rotationAngle), vectorToRotate);
+    }
+    Matrix RotateMatrixOnZ(const Matrix& matrixToRotate, float rotationAngle)
+    {
+        return MultiplyMatrix(GetRotationZMatrix(rotationAngle), matrixToRotate);
+    }
 
-    double rotationAngle = rotationAngleDegrees * M_PI / 180;
+private:
 
-    Matrix rotationMatrixZ = {
+    Matrix GetRotationZMatrix(float rotationAngle)
+    {
+        return{
         {{{std::cos(rotationAngle), -std::sin(rotationAngle), 0, 0}},
          {{std::sin(rotationAngle), std::cos(rotationAngle), 0, 0}},
          {{0, 0, 1, 0}},
-         {{0, 0, 0, 1}}}};
-
-    Vector positionVector{{2, 3, 4, 1}};
-
-    Vector directionVector{{1, 0, 0, 1}};
-    Vector moveVector = MultiplyMatrix(translationMatrix, positionVector);
-    Vector rotateVector = MultiplyMatrix(rotationMatrixZ, directionVector);
+         {{0, 0, 0, 1}}}};}
 };
