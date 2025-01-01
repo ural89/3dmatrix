@@ -9,6 +9,8 @@ int main(int argc, char *argv[])
     double rotationAngleDegrees = 90;
     double rotationAngle = rotationAngleDegrees * M_PI / 180;
 
+    renderer.DrawPoint(15, 15);
+
     //    renderer.GoToXY(10, 10);
     //    renderer.Render();
     return 0;

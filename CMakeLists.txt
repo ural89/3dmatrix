@@ -9,7 +9,8 @@ SET(SOURCES
     src/main.cpp
     src/Renderer.cpp
   )
-  
+
   include_directories(src/Headers/)
   ADD_EXECUTABLE(Matrix3D ${SOURCES})
 
+  target_link_libraries(Matrix3D PRIVATE ncurses)

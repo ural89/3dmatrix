@@ -1,16 +1,25 @@
 #include "Renderer.h"
+#include "ncurses.h"
+
 #include <cmath>
 #include <iostream>
+#include <ostream>
 void Renderer::Render()
 {
-    system("clear");
-    for (size_t i = 0; i < 10; i++)
-    {
-        GoToXY(i, i);
-        std::cout << "X";
-    }
+    initscr();
+    cbreak();
+    noecho();
+    curs_set(0); // Hide the cursor    
 }
-
+Renderer::~Renderer()
+{
+    std::cout << std::endl;
+}
+void Renderer::DrawPoint(int x, int y)
+{
+    GoToXY(x, y);
+    std::cout << "x";
+}
 void Renderer::RendererMatrix(const Matrix &matrix)
 {
     for (const auto &row : matrix)
