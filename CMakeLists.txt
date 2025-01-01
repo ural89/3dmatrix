@@ -1,8 +1,10 @@
 
 cmake_minimum_required(VERSION 3.30)
 project(Matrix3D)
-set(DCMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+#create compile_commands_json
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 SET(SOURCES
