@@ -1,17 +1,21 @@
-#include "Renderer.h"
 #include "GameObjects/ParentObject.h"
+#include "Renderer.h"
 #include "TranslateAndRotate.h"
+
+Renderer renderer;
 
 void DrawObject(Matrix objectTransformMatrix)
 {
+    Vector position;
     for (int i = 0; i < 4; i++)
     {
-        std::cout << objectTransformMatrix[i][3];
+        position[i] = objectTransformMatrix[i][3];
     }
+    renderer.RenderVector(position);
+    renderer.DrawPoint(position[0], position[1]);
 }
 int main(int argc, char *argv[])
 {
-    Renderer renderer;
     TranslateAndRotate translateAndRotate;
 
     double rotationAngleDegrees = 90;
@@ -23,6 +27,6 @@ int main(int argc, char *argv[])
     // rotate the parent dot 90 degrees
     ParentObject parenObject;
     DrawObject(parenObject.TransformMatrix);
-    //renderer.DrawPoint(15, 15); // origin point
+    // renderer.DrawPoint(15, 15); // origin point
     return 0;
 }
