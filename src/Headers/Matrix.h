@@ -4,6 +4,15 @@
 #define Matrix std::array<std::array<double, 4>, 4>
 #define Vector std::array<double, 4>
 
+static Vector GetPositionVectorFromMatrix(const Matrix& mat)
+{
+    Vector positionVector;
+    for (int i = 0; i < 4; i++)
+    {
+        positionVector[i] = mat[i][3];
+    }
+    return positionVector;
+}
 static Vector MultiplyMatrix(const Matrix& mat, const Vector& vec) {
     Vector result = {0, 0, 0, 0};
 

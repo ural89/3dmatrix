@@ -18,7 +18,7 @@ Renderer::~Renderer()
 void Renderer::DrawPoint(int x, int y)
 {
     GoToXY(x, y);
-    std::cout << "x";
+    std::cout << "x\n";
 }
 void Renderer::RendererMatrix(const Matrix &matrix)
 {
