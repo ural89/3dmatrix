@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/ural/Documents/dev/3dmatrix/build",
+  "command": "/usr/bin/c++  -I/home/ural/Documents/dev/3dmatrix/src/Headers -g -o CMakeFiles/Matrix3D.dir/src/main.cpp.o -c /home/ural/Documents/dev/3dmatrix/src/main.cpp",
+  "file": "/home/ural/Documents/dev/3dmatrix/src/main.cpp",
+  "output": "CMakeFiles/Matrix3D.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/ural/Documents/dev/3dmatrix/build",
+  "command": "/usr/bin/c++  -I/home/ural/Documents/dev/3dmatrix/src/Headers -g -o CMakeFiles/Matrix3D.dir/src/Renderer.cpp.o -c /home/ural/Documents/dev/3dmatrix/src/Renderer.cpp",
+  "file": "/home/ural/Documents/dev/3dmatrix/src/Renderer.cpp",
+  "output": "CMakeFiles/Matrix3D.dir/src/Renderer.cpp.o"
+}
+]
