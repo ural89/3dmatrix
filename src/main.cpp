@@ -1,5 +1,5 @@
-#include "GameObjects/ParentObject.h"
 #include "GameObjects/ChildObject.h"
+#include "GameObjects/ParentObject.h"
 #include "Matrix.h"
 #include "Renderer.h"
 #include "TranslateAndRotate.h"
@@ -19,15 +19,25 @@ int main(int argc, char *argv[])
     double rotationAngleDegrees = 90;
     double rotationAngle = rotationAngleDegrees * M_PI / 180;
 
+    ParentObject parentObject;
+    Matrix translateMatrix = {
+        {{1, 0, 0, 2},
+        {0, 1, 0, 2},
+        {0, 0, 1, 2},
+        {0, 0, 0, 1}} 
+    };  
+    for (size_t i = 0; i < 5; i++)
+    {
+        parentObject.TransformMatrix =
+            MultiplyMatrix(parentObject.TransformMatrix, translateMatrix);
+        DrawObject(parentObject.TransformMatrix, 2);
 
-    ChildObject childObject;
-    DrawObject(childObject.TransformMatrix, 0);
+        ChildObject childObject;
+        childObject.TransformMatrix = 
+            MultiplyMatrix(childObject.TransformMatrix, parentObject.TransformMatrix);
+        DrawObject(childObject.TransformMatrix, 1);
+    }
 
-    ParentObject parenObject;
-    DrawObject(parenObject.TransformMatrix, 2);
-
-    // Matrix MultiplyMatrix()
-    
     // translate position of the dot
     // create second dot as child of the first dot
     // rotate the parent dot 90 degrees
@@ -35,5 +45,5 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-// TIP: ctrl + w + s or v split. ctrl + hjkl change window. ctrl + w + q quit window
-// Space + / toggle comment
+// TIP: ctrl + w + s or v split. ctrl + hjkl change window. ctrl + w + q quit
+// window Space + / toggle comment
