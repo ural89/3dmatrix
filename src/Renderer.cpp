@@ -20,6 +20,16 @@ void Renderer::DrawPoint(int x, int y)
     GoToXY(x, y);
     std::cout << "x\n";
 }
+
+void Renderer::SetConsoleColor(int color)
+{
+#ifdef __GNUC__
+    std::cout << "\033[38;5;" << color << "m";
+#else
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+#endif
+}
+
 void Renderer::RendererMatrix(const Matrix &matrix)
 {
     for (const auto &row : matrix)
