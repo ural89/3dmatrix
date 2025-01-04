@@ -28,14 +28,14 @@ void MoveParentWithChildren()
         {0, 0, 1, 2},
         {0, 0, 0, 1}} 
     };  
-    for (size_t i = 0; i < 1; i++)
+    for (size_t i = 0; i < 4; i++)
     {
         parentObject.TransformMatrix =
             MultiplyMatrix(parentObject.TransformMatrix, translateMatrix);
         DrawObject(parentObject.TransformMatrix, 2);
 
         childObject.TransformMatrix = 
-            MultiplyMatrix(childObject.TransformMatrix, translateMatrix);
+            MultiplyMatrix(childObject.LocalTransformMatrix, parentObject.TransformMatrix);
         DrawObject(childObject.TransformMatrix, 1);
     }
 }
@@ -45,7 +45,7 @@ void RotateObject()
     double rotationAngleDegrees = 0;
 
     ParentObject parentObject;
-    for (size_t i = 0; i < 11; i++)
+    for (size_t i = 0; i < 10; i++)
     {
         rotationAngleDegrees += 1;
         double rotationAngle = rotationAngleDegrees * M_PI / 180;
@@ -55,10 +55,29 @@ void RotateObject()
 
     }
 }
+
+void RotateObjectWithChild()
+{
+    TranslateAndRotate translateAndRotate;
+    double rotationAngleDegrees = 0;
+
+    ParentObject parentObject;
+    for (size_t i = 0; i < 10; i++)
+    {
+        rotationAngleDegrees += 1;
+        double rotationAngle = rotationAngleDegrees * M_PI / 180;
+        parentObject.TransformMatrix = translateAndRotate.RotateMatrixOnZ(parentObject.TransformMatrix, rotationAngle);
+            
+        DrawObject(parentObject.TransformMatrix, 2);
+
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // MoveParentWithChildren();
-    RotateObject();
+    // RotateObject();
+    MoveParentWithChildren();
     
     // rotate the parent dot 90 degrees
     // renderer.DrawPoint(15, 15); // origin point
