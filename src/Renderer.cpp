@@ -54,7 +54,7 @@ void Renderer::RenderVector(const Vector &vector)
 
     for (const auto i : vector)
     {
-        if (std::fabs(i) < 1e-10)
+        if (std::fabs(i) < 0.01)
         {
             std::cout << 0 << ", ";
         }
