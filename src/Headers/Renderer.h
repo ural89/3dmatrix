@@ -6,7 +6,7 @@ class Renderer
   public:
     Renderer();
     ~Renderer();
-    void Render();
+    void DrawObject(Matrix objectTransformMatrix, int color);
     void RenderMatrix(const Matrix& matrix);
     void RenderVector(const Vector& vector);
     void GoToXY(int x, int y) { std::cout << "\033[" << y << ";" << x << "H"; }

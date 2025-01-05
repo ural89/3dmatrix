@@ -13,6 +13,19 @@ Renderer::Renderer()
     clear(); // Clear the screen initially
 }
 
+void Renderer::DrawObject(Matrix objectTransformMatrix, int color)
+{
+    SetConsoleColor(color);
+
+    Vector objectPosition = GetPositionVectorFromMatrix(objectTransformMatrix);
+    objectPosition[0] += 15; // Move to origin a bit
+    objectPosition[1] += 15;
+
+    // renderer.RenderMatrix(objectTransformMatrix);
+    // renderer.RenderVector(objectPosition);
+
+    DrawPoint(objectPosition[0], objectPosition[1]);
+}
 Renderer::~Renderer()
 {
     endwin(); // Restore the terminal settings when the renderer is destroyed
