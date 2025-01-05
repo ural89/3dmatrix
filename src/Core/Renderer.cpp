@@ -95,7 +95,7 @@ void Renderer::RenderPolygon(const Polygon &polygon)
 {
     for (int i = 0; i < 4; i++)
     {
-        DrawObject(polygon.vertices[i], 2);
+        DrawObject(*polygon.vertices[i], 2);
     }
 
 }

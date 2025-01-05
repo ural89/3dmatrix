@@ -24,7 +24,12 @@ static Vector MultiplyMatrix(const Matrix& mat, const Vector& vec) {
 
     return result;
 }
-
+static Matrix IdentityMatrix = {
+        {{1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}} 
+    };  
 static Matrix MultiplyMatrix(const Matrix &mat1, const Matrix &mat2)
 {
     Matrix result = {};

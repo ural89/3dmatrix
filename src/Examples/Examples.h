@@ -81,6 +81,16 @@ void static MoveParentWithChildren(Renderer& renderer)
 void static RenderPolygon(Renderer& renderer)
 {
     Polygon polygon;
-    renderer.RenderPolygon(polygon);
+    
+    for (size_t i = 0; i < 100; i++)
+    {
+        clear(); // Clear the screen
+
+        polygon.RotateAroundTopLeft();
+        renderer.RenderPolygon(polygon);
+        // renderer.RenderMatrix(*polygon.vertices[1]);
+        refresh(); // Refresh the screen to apply changes
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
 }
 
