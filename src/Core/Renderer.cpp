@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "ncurses.h"
+#include "Polygon.h"
 
 #include <cmath>
 
@@ -91,3 +92,7 @@ void Renderer::RenderVector(const Vector &vector)
 
 }
 
+void Renderer::RenderPolygon(const Polygon& Polygon)
+{
+
+}

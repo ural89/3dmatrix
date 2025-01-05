@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "Matrix.h"
 class Renderer
 {
@@ -9,7 +8,7 @@ class Renderer
     void DrawObject(Matrix objectTransformMatrix, int color);
     void RenderMatrix(const Matrix& matrix);
     void RenderVector(const Vector& vector);
-    void GoToXY(int x, int y) { std::cout << "\033[" << y << ";" << x << "H"; }
+    void RenderPolygon(const class Polygon& polygon);
     void SetConsoleColor(int color);
     void DrawPoint(int x, int y);
 };
