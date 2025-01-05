@@ -2,6 +2,7 @@
 #include "../GameObjects/ChildObject.h"
 #include "../GameObjects/ParentObject.h"
 #include "Matrix.h"
+#include "Polygon.h"
 #include "Renderer.h"
 #include "TranslateAndRotate.h"
 #include <chrono>
@@ -76,5 +77,10 @@ void static MoveParentWithChildren(Renderer& renderer)
             MultiplyMatrix(parentObject.TransformMatrix, childObject.LocalTransformMatrix);
         renderer.DrawObject(childObject.TransformMatrix, 1);
     }
+}
+void static RenderPolygon(Renderer& renderer)
+{
+    Polygon polygon;
+    renderer.RenderPolygon(polygon);
 }
 

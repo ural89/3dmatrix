@@ -1,6 +1,6 @@
 #include "Renderer.h"
-#include "ncurses.h"
 #include "Polygon.h"
+#include "ncurses.h"
 
 #include <cmath>
 
@@ -9,9 +9,9 @@ Renderer::Renderer()
     initscr();
     cbreak();
     noecho();
-    curs_set(0); // Hide the cursor
+    curs_set(0);   // Hide the cursor
     start_color(); // Initialize color functionality
-    clear(); // Clear the screen initially
+    clear();       // Clear the screen initially
 }
 
 void Renderer::DrawObject(Matrix objectTransformMatrix, int color)
@@ -57,42 +57,45 @@ void Renderer::RenderMatrix(const Matrix &matrix)
     int rowIndex = 0;
     for (const auto &row : matrix)
     {
-        int colIndex = 0; 
+        int colIndex = 0;
         for (const auto &value : row)
         {
             if (std::fabs(value) < 0.01)
             {
-                mvprintw(rowIndex, colIndex, "0, "); 
+                mvprintw(rowIndex, colIndex, "0, ");
             }
             else
             {
-                mvprintw(rowIndex, colIndex, "%.2f, ", value); 
+                mvprintw(rowIndex, colIndex, "%.2f, ", value);
             }
-            colIndex += 6; 
+            colIndex += 6;
         }
-        rowIndex++; 
+        rowIndex++;
     }
 }
 
 void Renderer::RenderVector(const Vector &vector)
 {
-    int colIndex = 0; 
+    int colIndex = 0;
     for (const auto &value : vector)
     {
         if (std::fabs(value) < 0.01)
         {
-            mvprintw(0, colIndex, "0, "); 
+            mvprintw(0, colIndex, "0, ");
         }
         else
         {
-            mvprintw(0, colIndex, "%.2f, ", value); 
+            mvprintw(0, colIndex, "%.2f, ", value);
         }
-        colIndex += 8; 
+        colIndex += 8;
     }
-
 }
 
-void Renderer::RenderPolygon(const Polygon& Polygon)
+void Renderer::RenderPolygon(const Polygon &polygon)
 {
+    for (int i = 0; i < 4; i++)
+    {
+        DrawObject(polygon.vertices[i], 2);
+    }
 
 }

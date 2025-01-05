@@ -5,8 +5,9 @@ Renderer renderer;
 int main(int argc, char *argv[])
 {
     // MoveParentWithChildren(renderer);
-    RotateObject(renderer);
+    // RotateObject(renderer);
     // RotateObjectWithChild(renderer);
+    RenderPolygon(renderer);
     endwin();
     getch();
     return 0;
