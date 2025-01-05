@@ -4,6 +4,7 @@
 class Renderer
 {
   public:
+    Renderer();
     ~Renderer();
     void Render();
     void RendererMatrix(const Matrix& matrix);

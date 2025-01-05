@@ -5,24 +5,20 @@
 #include "TranslateAndRotate.h"
 #include <chrono>
 #include <thread>
+#include "ncurses.h"
 
 Renderer renderer;
 void DrawObject(Matrix objectTransformMatrix, int color)
 {
     renderer.SetConsoleColor(color);
-    // Matrix translateMatrix = {// move to origin a bit
-    //     {{1, 0, 0, 100},
-    //     {0, 1, 0, 30},
-    //     {0, 0, 1, 0},
-    //     {0, 0, 0, 1}} 
-    // };  
-    Vector objectPosition = GetPositionVectorFromMatrix(objectTransformMatrix);//MultiplyMatrix(objectTransformMatrix, translateMatrix));
-    objectPosition[0] += 15;
+
+    Vector objectPosition = GetPositionVectorFromMatrix(objectTransformMatrix);
+    objectPosition[0] += 15; // Move to origin a bit
     objectPosition[1] += 15;
 
-    // renderer.RenderVector(objectPosition);
     renderer.DrawPoint(objectPosition[0], objectPosition[1]);
 }
+
 void MoveParentWithChildren()
 {
     ParentObject parentObject;
@@ -70,24 +66,27 @@ void RotateObjectWithChild()
     ParentObject parentObject;
     Matrix translateMatrix = {
         {{1, 0, 0, 0},
-        {0, 1, 0, 1},
-        {0, 0, 1, 0},
-        {0, 0, 0, 1}} 
-    };  
+         {0, 1, 0, 1},
+         {0, 0, 1, 0},
+         {0, 0, 0, 1}}
+    };
+
     for (size_t i = 0; i < 100; i++)
     {
-        rotationAngleDegrees += 1;
+        clear(); // Clear the screen
+
+        rotationAngleDegrees = 30;
         double rotationAngle = rotationAngleDegrees * M_PI / 180;
         childObject.LocalTransformMatrix = translateAndRotate.RotateMatrixOnZ(childObject.LocalTransformMatrix, rotationAngle);
         childObject.TransformMatrix = MultiplyMatrix(parentObject.TransformMatrix, childObject.LocalTransformMatrix);
 
         parentObject.TransformMatrix = MultiplyMatrix(parentObject.TransformMatrix, translateMatrix);
 
-            
-        DrawObject(parentObject.TransformMatrix, 2);
-        DrawObject(childObject.TransformMatrix, 1);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        DrawObject(parentObject.TransformMatrix, 3);
+        DrawObject(childObject.TransformMatrix, 5);
 
+        refresh(); // Refresh the screen to apply changes
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 }
 
@@ -96,7 +95,7 @@ int main(int argc, char *argv[])
     // MoveParentWithChildren();
     // RotateObject();
     RotateObjectWithChild();
-    
+    endwin();
     // rotate the parent dot 90 degrees
     // renderer.DrawPoint(15, 15); // origin point
     return 0;

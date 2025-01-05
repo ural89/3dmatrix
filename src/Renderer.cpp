@@ -2,66 +2,67 @@
 #include "ncurses.h"
 
 #include <cmath>
-#include <iostream>
-#include <ostream>
-void Renderer::Render()
+
+Renderer::Renderer()
 {
     initscr();
     cbreak();
     noecho();
-    curs_set(0); // Hide the cursor    
+    curs_set(0); // Hide the cursor
+    start_color(); // Initialize color functionality
+    clear(); // Clear the screen initially
 }
+
 Renderer::~Renderer()
 {
-    std::cout << std::endl;
+    endwin(); // Restore the terminal settings when the renderer is destroyed
 }
+
 void Renderer::DrawPoint(int x, int y)
 {
-    GoToXY(x, y);
-    std::cout << "x\n";
+    // Check if the coordinates are within bounds
+    if (x >= 0 && y >= 0 && x < COLS && y < LINES)
+    {
+        mvprintw(y, x, "x"); // Draw 'x' at the given position
+    }
+    else
+    {
+        // Debug message for out-of-bound coordinates
+        mvprintw(0, 0, "Coordinates out of bounds: x=%d, y=%d", x, y);
+    }
 }
 
 void Renderer::SetConsoleColor(int color)
 {
-#ifdef __GNUC__
-    std::cout << "\033[38;5;" << color << "m";
-#else
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
-#endif
+    // Use a dynamic color pair ID based on the input color
+    static int pairId = 1;
+    init_pair(pairId, color, COLOR_BLACK);
+    attron(COLOR_PAIR(pairId));
+    pairId++;
 }
 
 void Renderer::RendererMatrix(const Matrix &matrix)
 {
+    int y = 0;
     for (const auto &row : matrix)
     {
+        int x = 0;
         for (const auto &value : row)
         {
-            if (std::fabs(value) < 0.01)
-            {
-                std::cout << 0 << ", ";
-            }
-            else
-            {
-                std::cout << value << ", ";
-            }
+            mvprintw(y, x * 4, "%0.2f", value); // Print the matrix values
+            x++;
         }
-        std::cout << '\n';
+        y++;
     }
 }
 
 void Renderer::RenderVector(const Vector &vector)
 {
-
-    for (const auto i : vector)
+    int x = 0;
+    for (const auto value : vector)
     {
-        if (std::fabs(i) < 0.01)
-        {
-            std::cout << 0 << ", ";
-        }
-        else
-        {
-            std::cout << i << ", ";
-        }
+        mvprintw(0, x * 4, "%0.2f", value); // Print the vector values
+        x++;
     }
-    std::cout << '\n';
 }
+
