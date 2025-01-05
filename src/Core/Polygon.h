@@ -7,7 +7,7 @@ class Polygon
 {
     // TODO: try polygon matrix for each vertex
     // but change if not makes sense
-  public:
+  private:
     TranslateAndRotate translateAndRotate;
 
     Matrix RightTop =  IdentityMatrix;
@@ -38,23 +38,30 @@ class Polygon
 
   public:
     Matrix* vertices[4] = {
-        &LeftTopLocal,
+        &LeftTop,
         &RightTop,
-        &RightBottomLocal,
-        &LeftBottomLocal
+        &RightBottom,
+        &LeftBottom
     };
     void RotateAroundTopLeft()
     {
-        double rotationAngleDegrees = 5;
+        double rotationAngleDegrees = 25;
         double rotationAngle = rotationAngleDegrees * M_PI / 180;
         RightTopLocal = translateAndRotate.RotateMatrixOnZ(RightTopLocal, rotationAngle);
         RightTop = MultiplyMatrix(LeftTop, RightTopLocal);
         
-        //
         LeftBottomLocal = translateAndRotate.RotateMatrixOnZ(LeftBottomLocal, rotationAngle);
         LeftBottom = MultiplyMatrix(LeftTop, LeftBottomLocal);
-        // // 
+
         RightBottomLocal = translateAndRotate.RotateMatrixOnZ(RightBottomLocal, rotationAngle);
         RightBottom = MultiplyMatrix(LeftTop, RightBottomLocal);
+
+        Matrix translateMatrix = {
+        {{1, 0, 0, 0.3},
+        {0, 1, 0, 0.3},
+        {0, 0, 1, 0.3},
+        {0, 0, 0, 1}} 
+    };  
+        LeftTop = MultiplyMatrix(LeftTop , translateMatrix);
     }
 };
