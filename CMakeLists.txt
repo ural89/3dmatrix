@@ -11,10 +11,10 @@ set(CMAKE_BUILD_TYPE Debug)
 
 SET(SOURCES
     src/main.cpp
-    src/Renderer.cpp
+    src/Core/Renderer.cpp
   )
 
-  include_directories(src/Headers/)
+  include_directories(src/Core/)
   ADD_EXECUTABLE(Matrix3D ${SOURCES})
 
   target_link_libraries(Matrix3D PRIVATE ncurses)

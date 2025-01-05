@@ -13,4 +13,5 @@ int main(int argc, char *argv[])
 }
 
 // TIP: ctrl + w + s or v split. ctrl + hjkl change window. ctrl + w + q quit
+// space + r + a rename
 // window Space + / toggle comment
