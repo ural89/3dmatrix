@@ -16,6 +16,9 @@ void DrawObject(Matrix objectTransformMatrix, int color)
     objectPosition[0] += 15; // Move to origin a bit
     objectPosition[1] += 15;
 
+    // renderer.RenderMatrix(objectTransformMatrix);
+    // renderer.RenderVector(objectPosition);
+
     renderer.DrawPoint(objectPosition[0], objectPosition[1]);
 }
 
@@ -96,6 +99,7 @@ int main(int argc, char *argv[])
     // RotateObject();
     RotateObjectWithChild();
     endwin();
+    getch();
     // rotate the parent dot 90 degrees
     // renderer.DrawPoint(15, 15); // origin point
     return 0;

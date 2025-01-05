@@ -7,7 +7,7 @@ class Renderer
     Renderer();
     ~Renderer();
     void Render();
-    void RendererMatrix(const Matrix& matrix);
+    void RenderMatrix(const Matrix& matrix);
     void RenderVector(const Vector& vector);
     void GoToXY(int x, int y) { std::cout << "\033[" << y << ";" << x << "H"; }
     void SetConsoleColor(int color);
