@@ -86,7 +86,7 @@ void static RenderPolygon(Renderer& renderer)
     {
         clear(); // Clear the screen
 
-        polygon.RotateAroundTopLeft();
+        polygon.RotateAround();
         renderer.RenderPolygon(polygon);
         // renderer.RenderMatrix(*polygon.vertices[1]);
         refresh(); // Refresh the screen to apply changes

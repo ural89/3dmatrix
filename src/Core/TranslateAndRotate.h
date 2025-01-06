@@ -16,8 +16,6 @@ public:
         return MultiplyMatrix(GetRotationZMatrix(rotationAngle), matrixToRotate);
     }
 
-private:
-
     Matrix GetRotationZMatrix(float rotationAngle)
     {
         return{
@@ -25,4 +23,6 @@ private:
          {{std::sin(rotationAngle), std::cos(rotationAngle), 0, 0}},
          {{0, 0, 1, 0}},
          {{0, 0, 0, 1}}}};}
+private:
+
 };

@@ -43,18 +43,38 @@ class Polygon
         &RightBottom,
         &LeftBottom
     };
-    void RotateAroundTopLeft()
+    void RotateAround()
     {
+
+        Matrix PolygonTransform =  {
+        {
+        {1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}}};
+
+        Matrix RotatePointLocal = {
+        {
+        {1, 0, 0, 12},
+        {0, 1, 0, 2},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}}};
+
         double rotationAngleDegrees = 25;
         double rotationAngle = rotationAngleDegrees * M_PI / 180;
-        RightTopLocal = translateAndRotate.RotateMatrixOnZ(RightTopLocal, rotationAngle);
-        RightTop = MultiplyMatrix(LeftTop, RightTopLocal);
+        Matrix RotatePoint = MultiplyMatrix(PolygonTransform, RotatePointLocal);
+
+        RightTopLocal = translateAndRotate.RotateMatrixOnZ(RightTopLocal, rotationAngle); //rotate local
+        RightTop = MultiplyMatrix(RotatePoint, RightTopLocal); //find world transform from local transform
         
         LeftBottomLocal = translateAndRotate.RotateMatrixOnZ(LeftBottomLocal, rotationAngle);
-        LeftBottom = MultiplyMatrix(LeftTop, LeftBottomLocal);
+        LeftBottom = MultiplyMatrix(RotatePoint, LeftBottomLocal);
 
         RightBottomLocal = translateAndRotate.RotateMatrixOnZ(RightBottomLocal, rotationAngle);
-        RightBottom = MultiplyMatrix(LeftTop, RightBottomLocal);
+        RightBottom = MultiplyMatrix(RotatePoint, RightBottomLocal);
+
+        // LeftTopLocal = translateAndRotate.RotateMatrixOnZ(LeftTopLocal, rotationAngle);
+        // LeftTop = MultiplyMatrix(RotatePoint, LeftTopLocal);
 
         Matrix translateMatrix = {
         {{1, 0, 0, 0.3},
@@ -62,6 +82,6 @@ class Polygon
         {0, 0, 1, 0.3},
         {0, 0, 0, 1}} 
     };  
-        LeftTop = MultiplyMatrix(LeftTop , translateMatrix);
+        // LeftTop = MultiplyMatrix(LeftTop , translateMatrix);
     }
 };
