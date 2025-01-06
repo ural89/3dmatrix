@@ -7,11 +7,12 @@
 Renderer::Renderer()
 {
     initscr();
+    start_color(); 
+    use_default_colors();
     cbreak();
     noecho();
-    curs_set(0);   // Hide the cursor
-    start_color(); // Initialize color functionality
-    clear();       // Clear the screen initially
+    curs_set(0);   
+    clear();       
 }
 
 void Renderer::DrawObject(Matrix objectTransformMatrix, int color)
@@ -22,8 +23,8 @@ void Renderer::DrawObject(Matrix objectTransformMatrix, int color)
     objectPosition[0] += 15; // Move to origin a bit
     objectPosition[1] += 15;
 
-    // renderer.RenderMatrix(objectTransformMatrix);
-    // renderer.RenderVector(objectPosition);
+    // RenderMatrix(objectTransformMatrix);
+    // RenderVector(objectPosition);
 
     DrawPoint(objectPosition[0], objectPosition[1]);
 }
@@ -47,10 +48,11 @@ void Renderer::DrawPoint(int x, int y)
 void Renderer::SetConsoleColor(int color)
 {
     static int pairId = 1;
-    init_pair(pairId, color, COLOR_BLACK);
+    init_pair(pairId, color, -1);
     attron(COLOR_PAIR(pairId));
     pairId++;
 }
+
 
 void Renderer::RenderMatrix(const Matrix &matrix)
 {
