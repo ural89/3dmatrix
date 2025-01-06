@@ -1,6 +1,7 @@
 #pragma once
 #include "Matrix.h"
 #include "TranslateAndRotate.h"
+#include <cstdio>
 #include <ncurses.h>
 
 class Polygon
@@ -16,7 +17,7 @@ class Polygon
     Matrix RightBottom =  IdentityMatrix;
 
     Matrix LeftTopLocal = {{
-        {1, 0, 0, 0},
+        {1, 0, 0, -5},
         {0, 1, 0, 0},
         {0, 0, 1, 0}, 
         {0, 0, 0, 1}}};
@@ -26,7 +27,7 @@ class Polygon
         {0, 0, 1, 0},
         {0, 0, 0, 1}}};
     Matrix LeftBottomLocal = {
-        {{1, 0, 0, 0},
+        {{1, 0, 0, -5},
         {0, 1, 0, 5},
         {0, 0, 1, 0},
         {0, 0, 0, 1}}};
@@ -46,21 +47,15 @@ class Polygon
     void RotateAround()
     {
 
-        Matrix PolygonTransform =  {
-        {
-        {1, 0, 0, 0},
-        {0, 1, 0, 0},
-        {0, 0, 1, 0},
-        {0, 0, 0, 1}}};
-
+        Matrix PolygonTransform = IdentityMatrix;
         Matrix RotatePointLocal = {
         {
-        {1, 0, 0, 12},
-        {0, 1, 0, 2},
+        {1, 0, 0, 10},
+        {0, 1, 0, 15},
         {0, 0, 1, 0},
         {0, 0, 0, 1}}};
 
-        double rotationAngleDegrees = 25;
+        double rotationAngleDegrees = 20;
         double rotationAngle = rotationAngleDegrees * M_PI / 180;
         Matrix RotatePoint = MultiplyMatrix(PolygonTransform, RotatePointLocal);
 
@@ -73,8 +68,8 @@ class Polygon
         RightBottomLocal = translateAndRotate.RotateMatrixOnZ(RightBottomLocal, rotationAngle);
         RightBottom = MultiplyMatrix(RotatePoint, RightBottomLocal);
 
-        // LeftTopLocal = translateAndRotate.RotateMatrixOnZ(LeftTopLocal, rotationAngle);
-        // LeftTop = MultiplyMatrix(RotatePoint, LeftTopLocal);
+        LeftTopLocal = translateAndRotate.RotateMatrixOnZ(LeftTopLocal, rotationAngle);
+        LeftTop = MultiplyMatrix(RotatePoint, LeftTopLocal);
 
         Matrix translateMatrix = {
         {{1, 0, 0, 0.3},

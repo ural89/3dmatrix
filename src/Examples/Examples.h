@@ -39,7 +39,7 @@ void static RotateObjectWithChild(Renderer &renderer)
          {0, 0, 0, 1}}
     };
 
-    for (size_t i = 0; i < 100; i++)
+    while (true)
     {
         clear(); // Clear the screen
 
@@ -82,7 +82,7 @@ void static RenderPolygon(Renderer& renderer)
 {
     Polygon polygon;
     
-    for (size_t i = 0; i < 100; i++)
+    while (true)
     {
         clear(); // Clear the screen
 
