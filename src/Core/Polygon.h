@@ -6,38 +6,45 @@
 
 class Polygon
 {
-    // TODO: try polygon matrix for each vertex
-    // but change if not makes sense
-  private:
+private:
     TranslateAndRotate translateAndRotate;
 
-    Matrix RightTop =  IdentityMatrix;
-    Matrix LeftTop =  IdentityMatrix;
-    Matrix LeftBottom =  IdentityMatrix;
-    Matrix RightBottom =  IdentityMatrix;
+    Matrix PolygonTransform = 
+     {
+        {{1, 0, 0, 25},
+         {0, 1, 0, 0},
+         {0, 0, 1, 0},
+         {0, 0, 0, 1}}};
+;
 
-    Matrix LeftTopLocal = {{
-        {1, 0, 0, -5},
-        {0, 1, 0, 0},
-        {0, 0, 1, 0}, 
-        {0, 0, 0, 1}}};
+    Matrix LeftTopLocal =  {
+        {{1, 0, 0, 5},
+         {0, 1, 0, 0},
+         {0, 0, 1, 0},
+         {0, 0, 0, 1}}};
+;
     Matrix RightTopLocal = {
-        {{1, 0, 0, 5},
-        {0, 1, 0, 0},
-        {0, 0, 1, 0},
-        {0, 0, 0, 1}}};
+        {{1, 0, 0, 10},
+         {0, 1, 0, 0},
+         {0, 0, 1, 0},
+         {0, 0, 0, 1}}};
     Matrix LeftBottomLocal = {
-        {{1, 0, 0, -5},
-        {0, 1, 0, 5},
-        {0, 0, 1, 0},
-        {0, 0, 0, 1}}};
-    Matrix RightBottomLocal = {
         {{1, 0, 0, 5},
-        {0, 1, 0, 5},
-        {0, 0, 1, 0},
-        {0, 0, 0, 1}}};
+         {0, 1, 0, 5},
+         {0, 0, 1, 0},
+         {0, 0, 0, 1}}};
+    Matrix RightBottomLocal = {
+        {{1, 0, 0, 10},
+         {0, 1, 0, 5},
+         {0, 0, 1, 0},
+         {0, 0, 0, 1}}};
 
-  public:
+    Matrix LeftTop = IdentityMatrix;
+    Matrix RightTop = IdentityMatrix;
+    Matrix LeftBottom = IdentityMatrix;
+    Matrix RightBottom = IdentityMatrix;
+
+public:
     Matrix* vertices[4] = {
         &LeftTop,
         &RightTop,
@@ -46,37 +53,26 @@ class Polygon
     };
     void RotateAround()
     {
-
-        Matrix PolygonTransform = IdentityMatrix;
-        Matrix RotatePointLocal = {
-        {
-        {1, 0, 0, 10},
-        {0, 1, 0, 15},
-        {0, 0, 1, 0},
-        {0, 0, 0, 1}}};
-
-        double rotationAngleDegrees = 20;
+        double rotationAngleDegrees = 10; 
         double rotationAngle = rotationAngleDegrees * M_PI / 180;
-        Matrix RotatePoint = MultiplyMatrix(PolygonTransform, RotatePointLocal);
-
-        RightTopLocal = translateAndRotate.RotateMatrixOnZ(RightTopLocal, rotationAngle); //rotate local
-        RightTop = MultiplyMatrix(RotatePoint, RightTopLocal); //find world transform from local transform
-        
-        LeftBottomLocal = translateAndRotate.RotateMatrixOnZ(LeftBottomLocal, rotationAngle);
-        LeftBottom = MultiplyMatrix(RotatePoint, LeftBottomLocal);
-
-        RightBottomLocal = translateAndRotate.RotateMatrixOnZ(RightBottomLocal, rotationAngle);
-        RightBottom = MultiplyMatrix(RotatePoint, RightBottomLocal);
 
         LeftTopLocal = translateAndRotate.RotateMatrixOnZ(LeftTopLocal, rotationAngle);
-        LeftTop = MultiplyMatrix(RotatePoint, LeftTopLocal);
+        RightTopLocal = translateAndRotate.RotateMatrixOnZ(RightTopLocal, rotationAngle);
+        LeftBottomLocal = translateAndRotate.RotateMatrixOnZ(LeftBottomLocal, rotationAngle);
+        RightBottomLocal = translateAndRotate.RotateMatrixOnZ(RightBottomLocal, rotationAngle);
+
+        LeftTop = MultiplyMatrix(PolygonTransform, LeftTopLocal);
+        RightTop = MultiplyMatrix(PolygonTransform, RightTopLocal);
+        LeftBottom = MultiplyMatrix(PolygonTransform, LeftBottomLocal);
+        RightBottom = MultiplyMatrix(PolygonTransform, RightBottomLocal);
 
         Matrix translateMatrix = {
-        {{1, 0, 0, 0.3},
-        {0, 1, 0, 0.3},
-        {0, 0, 1, 0.3},
-        {0, 0, 0, 1}} 
-    };  
-        // LeftTop = MultiplyMatrix(LeftTop , translateMatrix);
+            {{1, 0, 0, 0.3},
+             {0, 1, 0, 0.3},
+             {0, 0, 1, 0},
+             {0, 0, 0, 1}}};
+        // PolygonTransform = MultiplyMatrix(PolygonTransform, translateMatrix);
     }
+
 };
+
