@@ -1,40 +1,37 @@
 #pragma once
 #include "Matrix.h"
 #include "TranslateAndRotate.h"
-#include <cstdio>
-#include <ncurses.h>
 
 class Polygon
 {
 private:
     TranslateAndRotate translateAndRotate;
 
-    Matrix PolygonTransform = 
-     {
-        {{1, 0, 0, 25},
+    Matrix PolygonTransform = {
+        {{2, 0, 0, 25},
          {0, 1, 0, 0},
          {0, 0, 1, 0},
          {0, 0, 0, 1}}};
 ;
 
     Matrix LeftTopLocal =  {
-        {{1, 0, 0, 5},
-         {0, 1, 0, 0},
+        {{1, 0, 0, -5},
+         {0, 1, 0, -5},
          {0, 0, 1, 0},
          {0, 0, 0, 1}}};
 ;
     Matrix RightTopLocal = {
-        {{1, 0, 0, 10},
-         {0, 1, 0, 0},
+        {{1, 0, 0, 5},
+         {0, 1, 0, -5},
          {0, 0, 1, 0},
          {0, 0, 0, 1}}};
     Matrix LeftBottomLocal = {
-        {{1, 0, 0, 5},
+        {{1, 0, 0, -5},
          {0, 1, 0, 5},
          {0, 0, 1, 0},
          {0, 0, 0, 1}}};
     Matrix RightBottomLocal = {
-        {{1, 0, 0, 10},
+        {{1, 0, 0, 5},
          {0, 1, 0, 5},
          {0, 0, 1, 0},
          {0, 0, 0, 1}}};
@@ -53,7 +50,7 @@ public:
     };
     void RotateAround()
     {
-        double rotationAngleDegrees = 10; 
+        double rotationAngleDegrees = 3; 
         double rotationAngle = rotationAngleDegrees * M_PI / 180;
 
         LeftTopLocal = translateAndRotate.RotateMatrixOnZ(LeftTopLocal, rotationAngle);

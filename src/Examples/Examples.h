@@ -5,7 +5,9 @@
 #include "Polygon.h"
 #include "Renderer.h"
 #include "TranslateAndRotate.h"
+#include "string"
 #include <chrono>
+#include <string>
 #include <thread>
 #include "ncurses.h"
 
@@ -81,14 +83,20 @@ void static MoveParentWithChildren(Renderer& renderer)
 void static RenderPolygon(Renderer& renderer)
 {
     Polygon polygon;
-    
+
     while (true)
     {
         clear(); // Clear the screen
 
+        auto start = std::chrono::high_resolution_clock::now(); // Start timing
+
         polygon.RotateAround();
         renderer.RenderPolygon(polygon);
-        // renderer.RenderMatrix(*polygon.vertices[1]);
+
+        auto end = std::chrono::high_resolution_clock::now(); // End timing
+
+        std::chrono::duration<double, std::milli> duration = end - start;
+        mvprintw(0, 0, "%s", std::to_string(duration.count()).c_str());
         refresh(); // Refresh the screen to apply changes
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
