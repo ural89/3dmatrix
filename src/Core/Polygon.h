@@ -1,11 +1,15 @@
 #pragma once
 #include "Matrix.h"
 #include "TranslateAndRotate.h"
+#include <algorithm>
+#include <cstdlib>
 
 class Polygon
 {
 private:
     TranslateAndRotate translateAndRotate;
+    double rotationAngle;
+    double rotationSpeed;
 
     Matrix PolygonTransform = {
         {{2, 0, 0, 25},
@@ -42,6 +46,14 @@ private:
     Matrix RightBottom = IdentityMatrix;
 
 public:
+    Polygon() : rotationSpeed(rand() % 5 + 59) 
+    {
+    }
+    void SetTransformMatrix(Matrix transformMatrix)
+    {
+        PolygonTransform = transformMatrix;
+    }
+
     Matrix* vertices[4] = {
         &LeftTop,
         &RightTop,
@@ -50,8 +62,7 @@ public:
     };
     void RotateAround(double DeltaTime)
     {
-        double rotationAngleDegrees = 90; 
-        double rotationAngle = rotationAngleDegrees * M_PI / 180 * DeltaTime;
+        rotationAngle = rotationSpeed * M_PI / 180 * DeltaTime;
 
         LeftTopLocal = translateAndRotate.RotateMatrixOnZ(LeftTopLocal, rotationAngle);
         RightTopLocal = translateAndRotate.RotateMatrixOnZ(RightTopLocal, rotationAngle);

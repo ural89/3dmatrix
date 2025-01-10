@@ -6,9 +6,9 @@
 #include "Renderer.h"
 #include "TranslateAndRotate.h"
 #include "ncurses.h"
-#include "string"
+#include <iostream>
+#include <sys/resource.h>
 #include <chrono>
-#include <string>
 #include <thread>
 
 void static RotateObject(Renderer &renderer)
@@ -75,32 +75,62 @@ void static MoveParentWithChildren(Renderer &renderer)
         renderer.DrawObject(childObject.TransformMatrix, 1);
     }
 }
+
+void static PrintMemoryUsage()
+{
+    struct rusage usage;
+    getrusage(RUSAGE_SELF, &usage);
+    std::cout << "Memory usage: " << usage.ru_maxrss << " KB" << std::endl;
+    mvprintw(1, 0, "Memory usage: %lu", usage.ru_maxrss);
+}
+
 void static RenderPolygon(Renderer &renderer)
 {
-    Polygon polygon;
+    int polygonCount = 400;
+    Polygon* polygons[polygonCount];
+    for (int i = 0; i < polygonCount; i++)
+    {
+        Polygon *polygon = new Polygon();
+        polygons[i] = polygon;
 
+    }
     auto startTime = std::chrono::high_resolution_clock::now();
     auto prevTime = startTime;
-    while (true)
+
+    for (int a = 0; a < 1000; a++)
     {
-        clear(); // Clear the screen
+        clear();
 
         auto endTime = std::chrono::high_resolution_clock::now();
         auto deltaTimeInSeconds =
             std::chrono::duration_cast<std::chrono::duration<double>>(endTime -
                                                                       prevTime)
                 .count();
-
         prevTime = endTime;
-        auto start = std::chrono::high_resolution_clock::now(); // Start timing
 
-        polygon.RotateAround(deltaTimeInSeconds);
-        renderer.RenderPolygon(polygon);
-
-        auto end = std::chrono::high_resolution_clock::now(); // End timing
+        auto start = std::chrono::high_resolution_clock::now();
+        for(int i=0; i < polygonCount; i++)
+        {
+            polygons[i]->RotateAround(deltaTimeInSeconds);
+            renderer.RenderPolygon(*polygons[i]);
+        }
+        
+        auto end = std::chrono::high_resolution_clock::now();
 
         std::chrono::duration<double, std::milli> duration = end - start;
-        mvprintw(0, 0, "%s", std::to_string(duration.count()).c_str());
-        refresh(); // Refresh the screen to apply changes
+
+        // Print frame time
+        mvprintw(0, 0, "Frame Time: %.2f ms", duration.count());
+
+        // Print memory usage
+        PrintMemoryUsage();
+
+        refresh();
     }
+    for (int i = 0; i < polygonCount; i++)
+    {
+        delete polygons[i];
+    }
+    PrintMemoryUsage();
+    getch();
 }
