@@ -48,10 +48,10 @@ public:
         &RightBottom,
         &LeftBottom
     };
-    void RotateAround()
+    void RotateAround(double DeltaTime)
     {
-        double rotationAngleDegrees = 3; 
-        double rotationAngle = rotationAngleDegrees * M_PI / 180;
+        double rotationAngleDegrees = 90; 
+        double rotationAngle = rotationAngleDegrees * M_PI / 180 * DeltaTime;
 
         LeftTopLocal = translateAndRotate.RotateMatrixOnZ(LeftTopLocal, rotationAngle);
         RightTopLocal = translateAndRotate.RotateMatrixOnZ(RightTopLocal, rotationAngle);
