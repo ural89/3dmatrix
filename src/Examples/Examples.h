@@ -96,8 +96,9 @@ void static RenderPolygon(Renderer &renderer)
     }
     auto startTime = std::chrono::high_resolution_clock::now();
     auto prevTime = startTime;
+    double timeElapsedSinceCreatePolygon = 0;
 
-    for (int a = 0; a < 1000; a++)
+    while (true)
     {
         clear();
 
@@ -107,26 +108,27 @@ void static RenderPolygon(Renderer &renderer)
                                                                       prevTime)
                 .count();
         prevTime = endTime;
+        timeElapsedSinceCreatePolygon += deltaTimeInSeconds;
 
         auto start = std::chrono::high_resolution_clock::now();
+
         for(int i=0; i < polygonCount; i++)
         {
             polygons[i]->RotateAround(deltaTimeInSeconds);
             renderer.RenderPolygon(*polygons[i]);
         }
-        
-        auto end = std::chrono::high_resolution_clock::now();
+       
 
+
+        auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
 
-        // Print frame time
         mvprintw(0, 0, "Frame Time: %.2f ms", duration.count());
-
-        // Print memory usage
         PrintMemoryUsage();
-
         refresh();
     }
+
+
     for (int i = 0; i < polygonCount; i++)
     {
         delete polygons[i];
