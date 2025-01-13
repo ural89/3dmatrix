@@ -86,7 +86,7 @@ void static PrintMemoryUsage()
 
 void static RenderPolygon(Renderer &renderer)
 {
-    int polygonCount = 400;
+    int polygonCount = 800;
     Polygon* polygons[polygonCount];
     for (int i = 0; i < polygonCount; i++)
     {
