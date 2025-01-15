@@ -1,7 +1,6 @@
 #pragma once
 #include "Matrix.h"
 #include "TranslateAndRotate.h"
-#include <algorithm>
 #include <cstdlib>
 
 class Polygon
@@ -48,6 +47,13 @@ private:
 public:
     Polygon() : rotationSpeed(rand() % 5 + 59) 
     {
+        double randomScale = (rand() % 200) / 100. + 1;
+        Matrix translateMatrix = {
+            {{randomScale, 0, 0, 0},
+             {0, randomScale, 0, 0},
+             {0, 0, 1, 0},
+             {0, 0, 0, 1}}};
+        PolygonTransform = MultiplyMatrix(PolygonTransform, translateMatrix);
     }
     void SetTransformMatrix(Matrix transformMatrix)
     {
@@ -74,12 +80,6 @@ public:
         LeftBottom = MultiplyMatrix(PolygonTransform, LeftBottomLocal);
         RightBottom = MultiplyMatrix(PolygonTransform, RightBottomLocal);
 
-        Matrix translateMatrix = {
-            {{1, 0, 0, 0.3},
-             {0, 1, 0, 0.3},
-             {0, 0, 1, 0},
-             {0, 0, 0, 1}}};
-        // PolygonTransform = MultiplyMatrix(PolygonTransform, translateMatrix);
     }
 
 };
