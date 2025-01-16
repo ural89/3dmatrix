@@ -1,3 +1,0 @@
-/home/ural/Documents/dev/3dmatrix/build/CMakeFiles/Matrix3D.dir
-/home/ural/Documents/dev/3dmatrix/build/CMakeFiles/edit_cache.dir
-/home/ural/Documents/dev/3dmatrix/build/CMakeFiles/rebuild_cache.dir
